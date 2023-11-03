@@ -6,7 +6,7 @@ import {
 // import { Modal } from 'components/Modal/Modal';
 
 export const ImageGalleryItem = ({ id, smallUrl, tags, onClickImageItem }) => (
-  <ImageGalleryItemStyled key={id} data-id={id} onClick={onClickImageItem}>
+  <ImageGalleryItemStyled data-id={id} onClick={onClickImageItem}>
     <ImageGalleryImg src={smallUrl} alt={tags} data-id={id} />
   </ImageGalleryItemStyled>
 );

@@ -7,6 +7,7 @@ export const ImageGallery = ({ photos, onClickImageItem }) => {
       {photos.map(({ id, webformatURL, tags }) => {
         return (
           <ImageGalleryItem
+            key={id}
             id={id}
             tags={tags}
             smallUrl={webformatURL}

@@ -11,7 +11,6 @@ export const Modal = ({ selectedPhoto: { largeImageURL, tags }, onClose }) => {
     };
   }, [onEscapeCloseModal]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   function onEscapeCloseModal(event) {
     if (event.code === 'Escape') {
       onClose();
