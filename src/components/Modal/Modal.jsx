@@ -1,39 +1,34 @@
 import { ModalStyle, Overlay } from './Modal.styled';
-import { Component } from 'react';
-export class Modal extends Component {
- 
-  componentDidMount = () => {
-    window.addEventListener('keydown', this.onEscapeCloseModal);
-    document.body.style.overflow='hidden'
-  };
+import { useEffect } from 'react';
 
-  componentWillUnmount = () => {
-    window.removeEventListener('keydown', this.onEscapeCloseModal);
-    document.body.style.overflow = 'auto';
-  };
+export const Modal = ({ selectedPhoto: { largeImageURL, tags }, onClose }) => {
+  useEffect(() => {
+    window.addEventListener('keydown', onEscapeCloseModal);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onEscapeCloseModal);
+      document.body.style.overflow = 'auto';
+    };
+  }, [onEscapeCloseModal]);
 
-  onEscapeCloseModal = event => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function onEscapeCloseModal(event) {
     if (event.code === 'Escape') {
-      this.props.onClose();
+      onClose();
     }
-  };
-
-  onClickOverlay = event => {
-    if (event.target === event.currentTarget) {
-      this.props.onClose();
-    }
-  };
-
-  render() {
-    const {largeImageURL, tags }= this.props;
-
-    return (
-      <Overlay onClick={this.onClickOverlay} >
-        <ModalStyle>
-          <img src={largeImageURL} alt={tags} />
-        </ModalStyle>
-      </Overlay>
-      
-    );
   }
-}
+
+  const onClickOverlay = event => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <Overlay onClick={onClickOverlay}>
+      <ModalStyle>
+        <img src={largeImageURL} alt={tags} />
+      </ModalStyle>
+    </Overlay>
+  );
+};

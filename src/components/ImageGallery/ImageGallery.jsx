@@ -1,20 +1,19 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styled';
 
-
-export const ImageGallery = ({ photos }) => {
+export const ImageGallery = ({ photos, onClickImageItem }) => {
   return (
-  <Gallery>
-    {photos.map(photo => {
-      return (
-        <ImageGalleryItem
-          key={photo.id}
-          photo={photo}
-       
-        />
-      );
-    })}
-  </Gallery>
-);
-  };
-
+    <Gallery>
+      {photos.map(({ id, webformatURL, tags }) => {
+        return (
+          <ImageGalleryItem
+            id={id}
+            tags={tags}
+            smallUrl={webformatURL}
+            onClickImageItem={onClickImageItem}
+          />
+        );
+      })}
+    </Gallery>
+  );
+};
